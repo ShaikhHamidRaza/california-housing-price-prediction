@@ -12,6 +12,6 @@ R² Score ≈ 0.57
 Median Income is the strongest predictor of housing prices.
 
 ## Future Improvements
-• Regularization
-• Ensemble models
-• Feature engineering
+- Regularization (Ridge / Lasso)
+- Ensemble models
+- Feature engineering
