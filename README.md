@@ -15,3 +15,10 @@ Median Income is the strongest predictor of housing prices.
 - Regularization (Ridge / Lasso)
 - Ensemble models
 - Feature engineering
+## Project Workflow
+• Data Loading
+• Data Cleaning
+• Exploratory Data Analysis (EDA)
+• Train-Test Split
+• Linear Regression Model
+• Model Evaluation
