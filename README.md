@@ -1,7 +1,7 @@
 ## California Housing Price Prediction
 
 Machine Learning project that predicts California house prices using the California Housing dataset from Scikit-learn.
-The project demonstrates a complete end-to-end ML pipeline, including data preprocessing, feature engineering, model training, evaluation, and comparison of multiple regression algorithms.
+The project demonstrates a complete end-to-end ML pipeline, including data preprocessing, feature engineering, model training, evaluation, and comparison of multiple regression algorithms .
 
 ## Project Overview
 
