@@ -1,176 +1,87 @@
-## California Housing Price Prediction
+# California Housing Price Prediction
 
-Machine Learning project that predicts California house prices using the California Housing dataset from Scikit-learn.
-The project demonstrates a complete end-to-end ML pipeline, including data preprocessing, feature engineering, model training, evaluation, and comparison of multiple regression algorithms .
+Predicting median house values across California census block groups using demographic and geographic features, and comparing several regression models to find the best fit.
 
-## Project Overview
+**🔗 Live demo:** [your-app-name.streamlit.app](https://your-app-name.streamlit.app) — replace with your actual Streamlit Cloud URL
 
-Housing price prediction is a classic regression problem in machine learning.
-The goal of this project is to build models that can estimate median house value based on features such as:
+## Problem
 
-Median income
-Average rooms
-Average bedrooms
-Population
-House age
-Latitude and longitude
-
-This project compares multiple regression models to identify the best performing algorithm.
+Real estate companies need a fast, data-driven way to estimate property values instead of relying on manual appraisal for every listing. This project builds a regression model to predict median house prices in California districts from income, location, and household features, and serves it through a deployed Streamlit app.
 
 ## Dataset
 
-The dataset used is California Housing Dataset from Scikit-learn.
+Built-in scikit-learn [California Housing dataset](https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset) — 20,640 rows, one row per census block group.
 
-Key details:
+| Feature | Meaning |
+|---|---|
+| MedInc | Median income in the block group (tens of thousands) |
+| HouseAge | Median house age |
+| AveRooms | Average rooms per household |
+| AveBedrms | Average bedrooms per household |
+| Population | Block group population |
+| AveOccup | Average household size |
+| Latitude / Longitude | Location |
+| **MedHouseVal** | Target — median house value ($100,000s) |
 
-20,640 housing records
-8 numerical features
-Target variable: Median House Value
+## Approach
 
-Features include:
+1. Data quality checks (missing values, duplicates)
+2. Exploratory data analysis — distributions, correlation, geographic price patterns
+3. Feature engineering — rooms per household, bedrooms per room, population per household
+4. Baseline model (Linear Regression) with residual analysis
+5. Compare Linear Regression, SVR, Decision Tree, Random Forest, and Gradient Boosting
+6. Cross-validation and hyperparameter tuning (GridSearchCV) on the best-performing model
+7. Feature importance and business interpretation
+8. Trained model saved with `joblib` and deployed via Streamlit
 
-Feature	Description
-MedInc	Median income in block
-HouseAge	Median age of houses
-AveRooms	Average number of rooms
-AveBedrms	Average bedrooms
-Population	Population of block
-AveOccup	Average occupancy
-Latitude	Location latitude
-Longitude	Location longitude
-## Exploratory Data Analysis (EDA)
+## Results
 
-The following analysis was performed:
+Random Forest (tuned) gave the best balance of RMSE and R² among the models tested. Median income was by far the strongest predictor of house value, followed by location (latitude/longitude).
 
-Correlation heatmap
-Feature distribution analysis
-Target variable distribution
-Scatter plots between key variables and house price
-
-Key insight:
-
-Median Income showed the strongest correlation with house prices.
-
-## Feature Engineering
-
-Additional features were created to improve model performance:
-
-rooms_per_household
-bedrooms_per_room
-population_per_household
-
-Feature engineering helps the model better understand relationships in the data.
-
-## Machine Learning Models Used
-
-The following regression algorithms were trained and compared:
-
-Linear Regression
-Decision Tree Regressor
-Random Forest Regressor
-Gradient Boosting Regressor
-
-A preprocessing pipeline was used including:
-
-Feature scaling
-Data splitting
-Model training
-## Model Evaluation
-
-Models were evaluated using:
-
-RMSE (Root Mean Squared Error)
-R² Score
-
-Example results:
-
-Model	RMSE	R²
-Linear Regression	~0.73	0.57
-Decision Tree	~0.60	0.64
-Random Forest	~0.50	0.72
-Gradient Boosting	~0.49	0.74
-
-Random Forest and Gradient Boosting performed best.
-
-## Model Optimization
-
-Model performance was improved using:
-
-Cross Validation
-GridSearchCV for hyperparameter tuning
-
-Best hyperparameters were selected automatically.
-
-## Feature Importance
-
-Feature importance analysis showed:
-
-Top predictors of house prices:
-
-Median Income
-Latitude
-Longitude
-Average Rooms
-
-This helps interpret how the model makes predictions.
-
-## Model Saving
-
-The final trained model was saved using Joblib.
-
-joblib.dump(best_model, "housing_price_model.pkl")
-
-This allows future predictions without retraining.
+Exact metrics are generated by the notebook on run — see the "Model Comparison Summary" section.
 
 ## Project Structure
-california-housing-price-prediction
-│
-├── housing_model.py
-├── notebook.ipynb
-├── housing_price_model.pkl
+
+```
+.
+├── california-housing-price-prediction.ipynb   # main notebook (EDA, training, tuning)
+├── app.py                                       # Streamlit app for live predictions
+├── housing_model.pkl                            # saved trained model
 ├── requirements.txt
-└── README.md
-## Technologies Used
+├── README.md
+└── .gitignore
+```
 
-Programming Language
+## Try It Live
 
-Python
+No setup needed — open the demo link at the top of this README, enter district-level values (income, location, rooms, etc.), and get a live predicted house price from the tuned model.
 
-Libraries
+## Running It Locally
 
-Pandas
-NumPy
-Scikit-learn
-Matplotlib
-Seaborn
-Joblib
-
-Tools
-
-Jupyter Notebook
-Git
-GitHub
-## How to Run the Project
-
-Clone the repository
-
-git clone https://github.com/ShaikhHamidRaza/california-housing-price-prediction
-
-Install dependencies
-
+**Notebook:**
+```bash
+git clone <your-repo-url>
+cd california-housing-price-prediction
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+jupyter notebook california-housing-price-prediction.ipynb
+```
+Run all cells top to bottom — the dataset downloads automatically via scikit-learn on first run, and the final cell saves `housing_model.pkl`.
 
-Run the notebook or script
+**Streamlit app:**
+```bash
+streamlit run app.py
+```
+Requires `housing_model.pkl` to exist first (generated by the notebook).
 
-python housing_model.py
-## Future Improvements
+## Future Work
 
-Possible improvements:
+- Try XGBoost / LightGBM for a stronger boosting baseline
+- Add engineered location features (distance to coast, distance to major cities)
+- Log-transform the target to reduce the effect of the $500k value cap in the data
+- Add input validation and example presets to the Streamlit app for easier demoing
 
-Deploy model using Streamlit web app
-Use advanced models like XGBoost
-Train deep learning regression model
-Perform hyperparameter tuning with RandomizedSearchCV
 ## Author
 
 Hamid Raza
