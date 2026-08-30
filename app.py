@@ -20,8 +20,25 @@ Longitude = st.number_input("Longitude")
 
 if st.button("Predict Price"):
 
-    features = np.array([[MedInc, HouseAge, AveRooms, AveBedrms,
-                          Population, AveOccup, Latitude, Longitude]])
+    # Feature Engineering
+    rooms_per_household = AveRooms / AveOccup
+    bedrooms_per_room = AveBedrms / AveRooms
+    population_per_household = Population / AveOccup
+
+    # 11 features for the trained model
+    features = np.array([[
+        MedInc,
+        HouseAge,
+        AveRooms,
+        AveBedrms,
+        Population,
+        AveOccup,
+        Latitude,
+        Longitude,
+        rooms_per_household,
+        bedrooms_per_room,
+        population_per_household
+    ]])
 
     prediction = model.predict(features)
 
